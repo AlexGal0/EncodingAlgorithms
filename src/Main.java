@@ -12,13 +12,23 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        byte[] bitFile = readFile("TestFiles/textFile1.txt");
+        // Encoding
+        byte[] bitFile = readFile("ImageTestCases/Gray 8 bit/artificial.pgm");
 
         Encoder encoder = new RunLenghtEncoding();
 
         byte[] array = encoder.encode(bitFile);
 
-        writeFile("OutputFiles/textFile1.txt", array);
+        writeFile("OutputFiles/artificial.rle", array);
+
+        // Decoding
+
+        bitFile = readFile("OutputFiles/artificial.rle");
+
+        array = encoder.decode(bitFile);
+
+        writeFile("OutputFiles/artificial.rled", array);
+
     }
 
     public static byte[] readFile(String pathString) throws IOException {
