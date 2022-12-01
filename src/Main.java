@@ -1,4 +1,5 @@
 import compressingalgorithm.Encoder;
+import compressingalgorithm.HuffmanCoding;
 import compressingalgorithm.RunLenghtEncoding;
 
 import java.io.FileNotFoundException;
@@ -12,6 +13,10 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        testText();
+    }
+
+    public static void testImage() throws IOException {
         // Encoding
         byte[] bitFile = readFile("ImageTestCases/Gray 8 bit/artificial.pgm");
 
@@ -28,7 +33,25 @@ public class Main {
         array = encoder.decode(bitFile);
 
         writeFile("OutputFiles/artificial.rled", array);
+    }
 
+    public static void testText() throws IOException {
+        // Encoding
+        byte[] bitFile = readFile("TestFiles/textFile1.txt");
+
+        Encoder encoder = new HuffmanCoding();
+
+        byte[] array = encoder.encode(bitFile);
+
+        writeFile("OutputFiles/textFile1.hce", array);
+
+        // Decoding
+
+        bitFile = readFile("OutputFiles/textFile1.hce");
+
+        array = encoder.decode(bitFile);
+
+        writeFile("OutputFiles/textFile1.hced", array);
     }
 
     public static byte[] readFile(String pathString) throws IOException {
